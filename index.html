@@ -93,15 +93,22 @@
                     <span class="window-controls" onclick="minimizeApp()">X</span>
                 </div>
                 <div class="window-body"
-                    style="text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; gap: 15px;">
-                    <p>🎵 PIXEL LOVE PLAYLIST 🎵</p>
-                    <a href="https://music.youtube.com/playlist?list=PLq6HuWRbMkyiS6a0aR0wz1Swudm95hw4d&si=XNeLNkBOTvMjcWO_"
-                        target="_blank" style="text-decoration: none;">
-                        <button class="pixel-btn"
-                            style="padding: 15px; font-size: 12px; display: flex; align-items: center; gap: 10px;">
-                            <span>🎧</span> OPEN IN YOUTUBE MUSIC
-                        </button>
-                    </a>
+                    style="text-align: center; padding: 0; display: flex; flex-direction: column; height: 100%;">
+                    <iframe width="100%" height="80%"
+                        src="https://www.youtube.com/embed/videoseries?list=PLq6HuWRbMkyiS6a0aR0wz1Swudm95hw4d"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen style="border: none;"></iframe>
+
+                    <div
+                        style="flex-grow: 1; display: flex; align-items: center; justify-content: center; background: #fff0f5;">
+                        <a href="https://music.youtube.com/playlist?list=PLq6HuWRbMkyiS6a0aR0wz1Swudm95hw4d&si=XNeLNkBOTvMjcWO_"
+                            target="_blank" style="text-decoration: none;">
+                            <button class="pixel-btn" style="font-size: 8px; padding: 5px;">
+                                🔗 Open in App
+                            </button>
+                        </a>
+                    </div>
                 </div>
             </div>
 
