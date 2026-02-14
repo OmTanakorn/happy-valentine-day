@@ -68,16 +68,32 @@ function initLoveInteraction() {
     });
 
     // NO Button Runaway
-    btnNo.addEventListener('mouseover', () => {
-        const x = Math.random() * (window.innerWidth - btnNo.offsetWidth) - (window.innerWidth / 2);
-        const y = Math.random() * (window.innerHeight - btnNo.offsetHeight) - (window.innerHeight / 2);
+    const moveNoButton = () => {
+        const container = btnNo.closest('.love-body');
+        if (!container) return;
 
-        // Keep it somewhat within the window if possible, or just move it randomly
-        // Let's just translate it away from cursor
-        const randomX = (Math.random() - 0.5) * 200;
-        const randomY = (Math.random() - 0.5) * 200;
+        const containerRect = container.getBoundingClientRect();
+        const btnRect = btnNo.getBoundingClientRect();
 
-        btnNo.style.transform = `translate(${randomX}px, ${randomY}px)`;
+        // Calculate safe boundaries
+        const maxX = containerRect.width - btnRect.width;
+        const maxY = containerRect.height - btnRect.height;
+
+        const randomX = Math.random() * maxX;
+        const randomY = Math.random() * maxY;
+
+        btnNo.style.position = 'absolute';
+        btnNo.style.transform = 'none';
+        btnNo.style.transition = 'all 0.2s ease-out';
+        btnNo.style.left = `${randomX}px`;
+        btnNo.style.top = `${randomY}px`;
+        btnNo.style.zIndex = '1000';
+    };
+
+    btnNo.addEventListener('mouseover', moveNoButton);
+    btnNo.addEventListener('touchstart', (e) => {
+        e.preventDefault(); // Prevent accidental clicking
+        moveNoButton();
     });
 
     // Just in case they click it

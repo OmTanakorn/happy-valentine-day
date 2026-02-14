@@ -381,6 +381,7 @@ body {
 }
 
 .love-body {
+  position: relative;
   background-color: #ffb7c5;
   /* Lighter pink background base */
   background-image:
