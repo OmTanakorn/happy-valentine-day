@@ -1,18 +1,55 @@
 document.addEventListener('DOMContentLoaded', () => {
     initClock();
     renderGarden();
-
-    // Optional: Add a simple heartbeat animation to the "Be mine..." text
-    const subtitle = document.querySelector('.window-subtitle');
-    if (subtitle) {
-        setInterval(() => {
-            subtitle.style.transform = 'scale(1.1)';
-            setTimeout(() => {
-                subtitle.style.transform = 'scale(1)';
-            }, 200);
-        }, 1000);
-    }
+    initLoveInteraction();
 });
+
+/* --- LOVE PROPOSAL INTERACTION --- */
+function initLoveInteraction() {
+    const btnYes = document.getElementById('btn-yes');
+    const btnNo = document.getElementById('btn-no');
+
+    if (!btnYes || !btnNo) return;
+
+    // YES Button Click
+    btnYes.addEventListener('click', () => {
+        // Celebration!
+        const content = document.querySelector('.love-content');
+        content.innerHTML = `
+            <h1 class="pixel-text" style="color: #d41e52; animation: bounce 1s infinite;">YAY! ❤</h1>
+            <p style="margin-top: 10px;">Happy Valentine's Day!</p>
+            <div class="cat-wrapper">
+                <img src="assets/cat_heart.png" alt="Happy Cat" class="pixel-cat" style="animation: spin 1s infinite linear;">
+            </div>
+        `;
+
+        // Add spin animation dynamically
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+            @keyframes spin { 100% { transform: rotate(360deg); } }
+        `;
+        document.head.appendChild(style);
+    });
+
+    // NO Button Runaway
+    btnNo.addEventListener('mouseover', () => {
+        const x = Math.random() * (window.innerWidth - btnNo.offsetWidth) - (window.innerWidth / 2);
+        const y = Math.random() * (window.innerHeight - btnNo.offsetHeight) - (window.innerHeight / 2);
+
+        // Keep it somewhat within the window if possible, or just move it randomly
+        // Let's just translate it away from cursor
+        const randomX = (Math.random() - 0.5) * 200;
+        const randomY = (Math.random() - 0.5) * 200;
+
+        btnNo.style.transform = `translate(${randomX}px, ${randomY}px)`;
+    });
+
+    // Just in case they click it
+    btnNo.addEventListener('click', () => {
+        alert("Nice try! But you have to say YES! 🔫");
+    });
+}
 
 /* --- SYSTEM CLOCK --- */
 function initClock() {

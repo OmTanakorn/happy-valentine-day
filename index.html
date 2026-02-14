@@ -112,21 +112,32 @@
                 </div>
             </div>
 
-            <!-- Gallery App -->
-            <div id="app-gallery" class="window-frame app-screen hidden">
+            <!-- Gallery App (Love Proposal) -->
+            <div id="app-gallery" class="window-frame app-screen hidden love-window">
                 <div class="window-header">
-                    <span>My_Cats.jpg</span>
-                    <span class="window-controls" onclick="minimizeApp()">X</span>
+                    <span>LOVE</span>
+                    <div class="header-hearts">
+                        <span class="pixel-heart">❤</span>
+                        <span class="pixel-heart">❤</span>
+                        <span class="pixel-heart">❤</span>
+                    </div>
+                    <span class="window-controls" onclick="minimizeApp()">- □ x</span>
                 </div>
-                <div class="window-body"
-                    style="display: flex; justify-content: center; align-items: center; height: 100%;">
-                    <div
-                        style="width: 200px; height: 150px; background: #fff; display: flex; align-items: center; justify-content: center; color: black; border: 2px solid #000; font-family: monospace; white-space: pre;">
-                        /\_/\
-                        ( o.o )
-                        > ^ < </div>
+                <div class="window-body love-body">
+                    <div class="love-content">
+                        <h2 class="pixel-text-small">Will you be my Valentine?</h2>
+
+                        <div class="cat-wrapper">
+                            <img src="assets/cat_heart.png" alt="Pixel Cat with Heart" class="pixel-cat">
+                        </div>
+
+                        <div class="love-actions">
+                            <button id="btn-yes" class="pixel-btn love-btn yes-btn">YES</button>
+                            <button id="btn-no" class="pixel-btn love-btn no-btn">NO</button>
+                        </div>
                     </div>
                 </div>
+            </div>
 
         </main>
 
@@ -182,23 +193,25 @@
         const displaySub = document.getElementById('dynamic-subtitle');
 
         // 1. Write Data
-        msgBtn.addEventListener('click', () => {
-            const text = msgInput.value.trim();
-            if (text) {
-                push(ref(db, 'messages'), {
-                    text: text,
-                    timestamp: Date.now()
-                });
-                msgInput.value = '';
-                alert('Message sent to the cloud! ☁️');
-            }
-        });
+        if (msgBtn && msgInput) {
+            msgBtn.addEventListener('click', () => {
+                const text = msgInput.value.trim();
+                if (text) {
+                    push(ref(db, 'messages'), {
+                        text: text,
+                        timestamp: Date.now()
+                    });
+                    msgInput.value = '';
+                    alert('Message sent to the cloud! ☁️');
+                }
+            });
+        }
 
         // 2. Read Data & Random Display
         const messagesRef = ref(db, 'messages');
         onValue(messagesRef, (snapshot) => {
             const data = snapshot.val();
-            if (data) {
+            if (data && displayMsg) {
                 const messages = Object.values(data);
                 // Pick a random message every 5 seconds
                 if (window.msgInterval) clearInterval(window.msgInterval);
@@ -209,7 +222,7 @@
                     displayMsg.style.opacity = 0;
                     setTimeout(() => {
                         displayMsg.textContent = randomMsg.text;
-                        displaySub.textContent = new Date(randomMsg.timestamp).toLocaleTimeString(); // Show time as subtitle
+                        if (displaySub) displaySub.textContent = new Date(randomMsg.timestamp).toLocaleTimeString();
                         displayMsg.style.opacity = 1;
                     }, 500);
                 }, 5000);
