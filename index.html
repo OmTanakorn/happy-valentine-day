@@ -17,41 +17,118 @@
     <div class="container">
         <!-- Top Navigation Bar -->
         <div class="top-nav">
-            <button class="nav-btn active">HOME</button>
-            <button class="nav-btn">MESSAGES</button>
-            <button class="nav-btn">GIFT</button>
-            <button class="nav-btn">PROFILE</button>
+            <button class="nav-btn" onclick="openApp('app-terminal')">TERMINAL</button>
+            <button class="nav-btn" onclick="openApp('app-garden')">GARDEN</button>
+            <button class="nav-btn" onclick="openApp('app-music')">MUSIC</button>
+            <button class="nav-btn" onclick="openApp('app-gallery')">GALLERY</button>
             <div class="clock-container">
                 <span class="clock-icon">🕒</span>
                 <span id="clock">14:02</span>
             </div>
         </div>
 
-        <!-- Main Window -->
-        <div class="main-window">
-            <div class="window-header">
-                <div class="window-controls">
-                    <span class="control minimize">_</span>
-                    <span class="control maximize">□</span>
-                    <span class="control close">×</span>
+        <!-- Main Content Area -->
+        <main class="main-content">
+
+            <!-- Default Home Screen (optional, or just make one app active by default) -->
+            <div id="app-home" class="window-frame app-screen">
+                <div class="window-header">
+                    <span>Message.txt</span>
+                    <span class="window-controls" onclick="minimizeApp()">X</span>
+                </div>
+                <div class="window-body"
+                    style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%;">
+                    <h1 class="pixel-text">HAPPY VALENTINE'S DAY</h1>
+                    <p class="window-subtitle">Be mine...</p>
                 </div>
             </div>
-            <div class="window-content">
-                <h1 class="pixel-text">HAPPY VALENTINE'S DAY</h1>
-                <p class="window-subtitle">Be mine...</p>
+
+            <!-- Terminal App -->
+            <div id="app-terminal" class="window-frame app-screen hidden">
+                <div class="window-header">
+                    <span>root@heart:~</span>
+                    <span class="window-controls" onclick="minimizeApp()">_</span>
+                </div>
+                <div class="window-body">
+                    <p>> checking_relationship_status...</p>
+                    <p class="error">Error 404: Partner Not Found.</p>
+                    <br>
+                    <p>> optimizing_happiness...</p>
+                    <p class="success">[OK] Beer loaded.</p>
+                    <p class="success">[OK] Code deployed.</p>
+                    <br>
+                    <p>> echo "Happy Valentine's Day"</p>
+                    <p class="blink">_</p>
+                </div>
             </div>
-        </div>
+
+            <!-- Garden App -->
+            <div id="app-garden" class="window-frame app-screen hidden">
+                <div class="window-header">
+                    <span>Activity_Monitor.exe</span>
+                    <span class="window-controls" onclick="minimizeApp()">X</span>
+                </div>
+                <div class="window-body" style="text-align: center;">
+                    <p>--- SOLO DEV CONTRIBUTION ---</p>
+                    <div id="garden-grid" class="garden-grid"></div>
+                    <p style="margin-top: 10px; font-size: 10px; color: #888;">
+                        Level 4 Intensity detected on Feb 14.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Music App -->
+            <div id="app-music" class="window-frame app-screen hidden">
+                <div class="window-header">
+                    <span>Winamp_Classic</span>
+                    <span class="window-controls" onclick="minimizeApp()">X</span>
+                </div>
+                <div class="window-body" style="text-align: center;">
+                    <p>🎵 NOW PLAYING 🎵</p>
+                    <br>
+                    <p style="color: cyan;">"Coding in the dark.mp3"</p>
+                    <p>02:14 ━━●────── 04:20</p>
+                    <br>
+                    <button class="pixel-btn">⏮</button>
+                    <button class="pixel-btn">▶</button>
+                    <button class="pixel-btn">⏭</button>
+                </div>
+            </div>
+
+            <!-- Gallery App -->
+            <div id="app-gallery" class="window-frame app-screen hidden">
+                <div class="window-header">
+                    <span>My_Cats.jpg</span>
+                    <span class="window-controls" onclick="minimizeApp()">X</span>
+                </div>
+                <div class="window-body"
+                    style="display: flex; justify-content: center; align-items: center; height: 100%;">
+                    <div
+                        style="width: 200px; height: 150px; background: #fff; display: flex; align-items: center; justify-content: center; color: black; border: 2px solid #000; font-family: monospace; white-space: pre;">
+                        /\_/\
+                        ( o.o )
+                        > ^ < </div>
+                    </div>
+                </div>
+
+        </main>
 
         <!-- Bottom Dock -->
         <div class="dock">
-            <div class="dock-icon" title="Sweets">
-                <div class="icon-inner cupcake">🧁</div>
+            <div class="dock-icon" onclick="openApp('app-terminal')" title="Terminal">
+                <div class="icon-inner">💻</div>
             </div>
-            <div class="dock-icon center-icon" title="Love Letter">
-                <div class="icon-inner envelope">💌</div>
+            <div class="dock-icon center-icon" onclick="openApp('app-home')" title="Home">
+                <div class="icon-inner">💌</div>
             </div>
-            <div class="dock-icon" title="Rose">
-                <div class="icon-inner rose">🌹</div>
+            <div class="dock-icon" onclick="openApp('app-garden')" title="Activity Log">
+                <div class="icon-inner">📊</div>
+            </div>
+            <div class="dock-icon" onclick="openApp('app-music')" title="Music">
+                <div class="icon-inner">🎵</div>
+            </div>
+            <div class="dock-icon" onclick="openApp('app-gallery')" title="Gallery">
+                <div class="icon-inner">🐱</div>
             </div>
         </div>
     </div>
