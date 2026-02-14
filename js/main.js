@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initClock();
     renderGarden();
     initLoveInteraction();
+    initFallingBackground();
 });
 
 /* --- LOVE PROPOSAL INTERACTION --- */
@@ -49,6 +50,40 @@ function initLoveInteraction() {
     btnNo.addEventListener('click', () => {
         alert("Nice try! But you have to say YES! 🔫");
     });
+}
+
+/* --- FALLING BACKGROUND --- */
+function initFallingBackground() {
+    const assets = ['assets/Love.png', 'assets/flow1.png'];
+
+    // Create a container for falling items so they don't clutter the body directly
+    const container = document.createElement('div');
+    container.className = 'falling-container';
+    document.body.appendChild(container);
+
+    setInterval(() => {
+        const img = document.createElement('img');
+        img.src = assets[Math.floor(Math.random() * assets.length)];
+        img.className = 'falling-item';
+
+        // Random Properties
+        const startLeft = Math.random() * 100; // 0-100%
+        const duration = Math.random() * 5 + 3; // 3-8s
+        const size = Math.random() * 30 + 20; // 20-50px
+
+        img.style.left = `${startLeft}vw`;
+        img.style.animationDuration = `${duration}s`;
+        img.style.width = `${size}px`;
+        img.style.height = 'auto'; // Keep aspect ratio
+
+        container.appendChild(img);
+
+        // Cleanup
+        setTimeout(() => {
+            img.remove();
+        }, duration * 1000);
+
+    }, 500); // Spawn every 500ms
 }
 
 /* --- SYSTEM CLOCK --- */
