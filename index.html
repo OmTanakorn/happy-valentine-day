@@ -31,20 +31,29 @@
         <main class="main-content">
 
             <!-- Default Home Screen (optional, or just make one app active by default) -->
-            <div id="app-home" class="window-frame app-screen">
+            <div id="app-home" class="window-frame app-screen hidden">
                 <div class="window-header">
                     <span>Message.txt</span>
                     <span class="window-controls" onclick="minimizeApp()">X</span>
                 </div>
                 <div class="window-body"
-                    style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%;">
-                    <h1 class="pixel-text">HAPPY VALENTINE'S DAY</h1>
-                    <p class="window-subtitle">Be mine...</p>
+                    style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; text-align: center;">
+                    <div id="message-display-area" style="margin-bottom: 20px;">
+                        <h1 class="pixel-text" id="dynamic-message">HAPPY VALENTINE'S DAY</h1>
+                        <p class="window-subtitle" id="dynamic-subtitle">Be mine...</p>
+                    </div>
+
+                    <div class="input-controls"
+                        style="display: flex; gap: 5px; flex-direction: column; align-items: center;">
+                        <input type="text" id="msg-input" placeholder="Send a message..." class="pixel-input"
+                            style="font-family: 'Press Start 2P'; padding: 8px; font-size: 10px; width: 200px; border: 2px solid #5a232f;">
+                        <button id="msg-btn" class="pixel-btn" style="width: 100px;">SEND 💌</button>
+                    </div>
                 </div>
             </div>
 
             <!-- Terminal App -->
-            <div id="app-terminal" class="window-frame app-screen hidden">
+            <div id="app-terminal" class="window-frame app-screen">
                 <div class="window-header">
                     <span>root@heart:~</span>
                     <span class="window-controls" onclick="minimizeApp()">_</span>
@@ -54,7 +63,7 @@
                     <p class="error">Error 404: Partner Not Found.</p>
                     <br>
                     <p>> optimizing_happiness...</p>
-                    <p class="success">[OK] Beer loaded.</p>
+                    <p class="success">[OK] Coffee loaded.</p>
                     <p class="success">[OK] Code deployed.</p>
                     <br>
                     <p>> echo "Happy Valentine's Day"</p>
@@ -134,6 +143,71 @@
     </div>
 
     <script src="js/main.js"></script>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.3.0/firebase-analytics.js";
+        import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/11.3.0/firebase-database.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDqc6KB6_FkDWwIvT2Yz_FU4Oi0yjFBvLA",
+            authDomain: "happy-valentine-day-627af.firebaseapp.com",
+            databaseURL: "https://happy-valentine-day-627af-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "happy-valentine-day-627af",
+            storageBucket: "happy-valentine-day-627af.firebasestorage.app",
+            messagingSenderId: "928123238364",
+            appId: "1:928123238364:web:ef5a523c7d480673f34119",
+            measurementId: "G-DPYP6YLQ12"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const db = getDatabase(app);
+
+        // --- Message Logic ---
+        const msgInput = document.getElementById('msg-input');
+        const msgBtn = document.getElementById('msg-btn');
+        const displayMsg = document.getElementById('dynamic-message');
+        const displaySub = document.getElementById('dynamic-subtitle');
+
+        // 1. Write Data
+        msgBtn.addEventListener('click', () => {
+            const text = msgInput.value.trim();
+            if (text) {
+                push(ref(db, 'messages'), {
+                    text: text,
+                    timestamp: Date.now()
+                });
+                msgInput.value = '';
+                alert('Message sent to the cloud! ☁️');
+            }
+        });
+
+        // 2. Read Data & Random Display
+        const messagesRef = ref(db, 'messages');
+        onValue(messagesRef, (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                const messages = Object.values(data);
+                // Pick a random message every 5 seconds
+                if (window.msgInterval) clearInterval(window.msgInterval);
+
+                window.msgInterval = setInterval(() => {
+                    const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+                    // Simple animation
+                    displayMsg.style.opacity = 0;
+                    setTimeout(() => {
+                        displayMsg.textContent = randomMsg.text;
+                        displaySub.textContent = new Date(randomMsg.timestamp).toLocaleTimeString(); // Show time as subtitle
+                        displayMsg.style.opacity = 1;
+                    }, 500);
+                }, 5000);
+            }
+        });
+    </script>
 </body>
 
 </html>

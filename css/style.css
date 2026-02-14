@@ -173,18 +173,28 @@ body {
 
 /* Terminal Specifics */
 #app-terminal .window-body {
-  background-color: #000;
-  color: #0f0;
-  font-family: monospace;
+  background-color: #fff0f5;
+  /* Lavender Blush */
+  color: #d41e52;
+  /* Dark Pink */
+  font-family: 'Courier New', monospace;
+  font-size: 18px;
+  /* Bigger text */
+  font-weight: bold;
+  line-height: 1.5;
 }
 
 .error {
-  color: red;
+  color: #ff6b95;
 }
 
+/* Lighter Pink/Red */
+
 .success {
-  color: #0f0;
+  color: #50c878;
 }
+
+/* Emerald Green */
 
 .blink {
   animation: blinker 1s linear infinite;
