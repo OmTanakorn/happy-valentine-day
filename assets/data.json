@@ -1,0 +1,16 @@
+[
+  { "date": "2025-02-14", "level": 4, "note": "Refactoring my life (and code)" },
+  { "date": "2025-02-13", "level": 3, "note": "Debugging relationship status: NullReferenceException" },
+  { "date": "2025-02-12", "level": 2, "note": "Gaming: Elden Ring marathon" },
+  { "date": "2025-02-10", "level": 4, "note": "Drinking Stout: 4 pints deep" },
+  { "date": "2025-02-08", "level": 1, "note": "Touching grass (briefly)" },
+  { "date": "2025-02-05", "level": 3, "note": "Coding: New side project started" },
+  { "date": "2025-02-01", "level": 2, "note": "Gaming: Lost rank again" },
+  { "date": "2025-01-28", "level": 4, "note": "Drinking Stout: Celebrating bug fix" },
+  { "date": "2025-01-25", "level": 3, "note": "Coding: LeetCode grind" },
+  { "date": "2025-01-20", "level": 1, "note": "Read documentation" },
+  { "date": "2025-01-15", "level": 4, "note": "Hackathon weekend" },
+  { "date": "2025-01-10", "level": 2, "note": "Gaming with the boys" },
+  { "date": "2025-01-05", "level": 3, "note": "Drinking Stout: New year same me" },
+  { "date": "2025-01-01", "level": 1, "note": "Recovering from NYE" }
+]
