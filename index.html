@@ -1,3 +1,16 @@
+<!--
+         ♥♥♥♥          ♥♥♥♥
+       ♥♥♥♥♥♥♥♥      ♥♥♥♥♥♥♥♥
+     ♥♥♥♥♥♥♥♥♥♥♥♥  ♥♥♥♥♥♥♥♥♥♥♥♥
+     ♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥
+      ♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥
+        ♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥
+          ♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥
+            ♥♥♥♥♥♥♥♥♥♥♥♥
+              ♥♥♥♥♥♥♥♥
+                ♥♥♥♥
+                 ♥♥
+-->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -89,26 +102,27 @@
             <!-- Music App -->
             <div id="app-music" class="window-frame app-screen hidden">
                 <div class="window-header">
-                    <span>Winamp_Classic</span>
+                    <span>Spotify_Link.exe</span>
                     <span class="window-controls" onclick="minimizeApp()">X</span>
                 </div>
-                <div class="window-body"
-                    style="text-align: center; padding: 0; display: flex; flex-direction: column; height: 100%;">
-                    <iframe width="100%" height="80%"
-                        src="https://www.youtube.com/embed/videoseries?list=PLq6HuWRbMkyiS6a0aR0wz1Swudm95hw4d"
-                        title="YouTube video player" frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        allowfullscreen style="border: none;"></iframe>
-
-                    <div
-                        style="flex-grow: 1; display: flex; align-items: center; justify-content: center; background: #fff0f5;">
-                        <a href="https://music.youtube.com/playlist?list=PLq6HuWRbMkyiS6a0aR0wz1Swudm95hw4d&si=XNeLNkBOTvMjcWO_"
-                            target="_blank" style="text-decoration: none;">
-                            <button class="pixel-btn" style="font-size: 8px; padding: 5px;">
-                                🔗 Open in App
-                            </button>
-                        </a>
+                
+                <div class="window-body" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+                    
+                    <p id="music-status" style="font-size: 10px; margin-bottom: 10px; color: #555;">Connecting...</p>
+            
+                    <div style="position: relative; width: 120px; height: 120px; margin-bottom: 15px;">
+                        <div style="position: absolute; inset: -4px; border: 2px solid #fff; z-index: 1;"></div>
+                        <img id="album-cover" src="assets/noting.png" 
+                             style="width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated;">
                     </div>
+            
+                    <h3 id="song-title" style="color: cyan; margin: 0; font-size: 14px; line-height: 1.4;">-</h3>
+                    <p id="artist-name" style="color: #aaa; font-size: 10px; margin-top: 5px;">-</p>
+            
+                    <div style="width: 100%; height: 12px; background: #333; margin-top: 15px; border: 1px solid #555;">
+                        <div id="progress-bar" style="width: 0%; height: 100%; background: #ff4d4d; transition: width 1s linear;"></div>
+                    </div>
+            
                 </div>
             </div>
 
@@ -121,7 +135,8 @@
                         <span class="pixel-heart">❤</span>
                         <span class="pixel-heart">❤</span>
                     </div>
-                    <span class="window-controls" onclick="minimizeApp()">- □ x</span>
+                    <span class="window-controls" onclick="minimizeApp()">- □ <img src="assets/x.png"
+                            style="width: 10px; vertical-align: middle;"></span>
                 </div>
                 <div class="window-body love-body">
                     <div class="love-content">
@@ -144,10 +159,10 @@
         <!-- Bottom Dock -->
         <div class="dock">
             <div class="dock-icon" onclick="openApp('app-terminal')" title="Terminal">
-                <div class="icon-inner">💻</div>
+                <div class="icon-inner"><img src="assets/icon_com.png" alt="Terminal" style="width: 24px;"></div>
             </div>
             <div class="dock-icon center-icon" onclick="openApp('app-home')" title="Home">
-                <div class="icon-inner">💌</div>
+                <div class="icon-inner"><img src="assets/meil.png" alt="Home" style="width: 24px;"></div>
             </div>
             <div class="dock-icon" onclick="openApp('app-garden')" title="Activity Log">
                 <div class="icon-inner">📊</div>

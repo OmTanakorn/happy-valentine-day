@@ -1,9 +1,43 @@
+/*
+ *         ♥♥♥♥          ♥♥♥♥
+ *       ♥♥♥♥♥♥♥♥      ♥♥♥♥♥♥♥♥
+ *     ♥♥♥♥♥♥♥♥♥♥♥♥  ♥♥♥♥♥♥♥♥♥♥♥♥
+ *     ♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥
+ *      ♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥
+ *        ♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥
+ *          ♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥
+ *            ♥♥♥♥♥♥♥♥♥♥♥♥
+ *              ♥♥♥♥♥♥♥♥
+ *                ♥♥♥♥
+ *                 ♥♥
+ *
+ * --- MAIN JS --- */
+
 document.addEventListener('DOMContentLoaded', () => {
     initClock();
     renderGarden();
     initLoveInteraction();
     initFallingBackground();
+    initSpotifyListener();
+    initAudio();
 });
+
+/* --- AUDIO CLICK SFX --- */
+function initAudio() {
+    const audio = new Audio('assets/click.mp3');
+    audio.volume = 0.5; // Adjust volume as needed
+
+    // Global click listener
+    document.addEventListener('click', (e) => {
+        // Check if the target or its parent is a button or clickable element
+        const target = e.target.closest('button, a, .dock-icon, .window-controls, .nav-btn, input');
+
+        if (target) {
+            audio.currentTime = 0; // Reset to start
+            audio.play().catch(err => console.warn("Audio play prevented:", err));
+        }
+    });
+}
 
 /* --- LOVE PROPOSAL INTERACTION --- */
 function initLoveInteraction() {
@@ -54,7 +88,13 @@ function initLoveInteraction() {
 
 /* --- FALLING BACKGROUND --- */
 function initFallingBackground() {
-    const assets = ['assets/Love.png', 'assets/flow1.png'];
+    const assets = [
+        'assets/Love.png',
+        'assets/flow1.png',
+        'assets/icon_com.png',
+        'assets/meil.png',
+        'assets/x.png'
+    ];
 
     // Create a container for falling items so they don't clutter the body directly
     const container = document.createElement('div');
@@ -145,22 +185,127 @@ function renderGarden() {
     // Clear existing
     container.innerHTML = '';
 
+    // Data from assets/data.json (Embedded for local file access safety)
+    const activityData = [
+        { "date": "2025-02-14", "level": 4, "note": "Refactoring my life (and code)" },
+        { "date": "2025-02-13", "level": 3, "note": "Debugging relationship status: NullReferenceException" },
+        { "date": "2025-02-12", "level": 2, "note": "Gaming: Elden Ring marathon" },
+        { "date": "2025-02-10", "level": 4, "note": "Drinking Stout: 4 pints deep" },
+        { "date": "2025-02-08", "level": 1, "note": "Touching grass (briefly)" },
+        { "date": "2025-02-05", "level": 3, "note": "Coding: New side project started" },
+        { "date": "2025-02-01", "level": 2, "note": "Gaming: Lost rank again" },
+        { "date": "2025-01-28", "level": 4, "note": "Drinking Stout: Celebrating bug fix" },
+        { "date": "2025-01-25", "level": 3, "note": "Coding: LeetCode grind" },
+        { "date": "2025-01-20", "level": 1, "note": "Read documentation" },
+        { "date": "2025-01-15", "level": 4, "note": "Hackathon weekend" },
+        { "date": "2025-01-10", "level": 2, "note": "Gaming with the boys" },
+        { "date": "2025-01-05", "level": 3, "note": "Drinking Stout: New year same me" },
+        { "date": "2025-01-01", "level": 1, "note": "Recovering from NYE" }
+    ];
+
+    // Create a lookup map for faster access
+    const activityMap = {};
+    activityData.forEach(item => {
+        activityMap[item.date] = item;
+    });
+
     // Create Grid 7 rows x 20 cols
     const totalCells = 7 * 20;
 
+    // We want to simulate the last 5-6 months roughly, but let's just reverse iterate from today
+    // Actually, normally github graph goes col by col (week by week). 
+    // Let's just fill it randomly but inject our specific dates.
+
+    const today = new Date('2025-02-14'); // Fixed date based on data
+
+    // Generate dates for the grid (going backwards from today)
+    // 7 rows = days of week. 20 cols = weeks.
+    // Total 140 days.
+
+    const cellDates = [];
     for (let i = 0; i < totalCells; i++) {
+        const d = new Date(today);
+        d.setDate(today.getDate() - (totalCells - 1 - i));
+        cellDates.push(d.toISOString().split('T')[0]);
+    }
+
+    cellDates.forEach(dateStr => {
         const cell = document.createElement('div');
         cell.className = 'pixel-cell';
 
-        // Random Green (Simulate Commit)
-        // 70% Empty, 30% Activity
-        if (Math.random() > 0.7) {
-            const level = Math.floor(Math.random() * 4) + 1; // 1-4
-            cell.classList.add(`l${level}`); // l1, l2, l3, l4 defined in css
+        const data = activityMap[dateStr];
+
+        if (data) {
+            cell.classList.add(`l${data.level}`);
+            cell.title = `${data.date}: ${data.note}`; // Tooltip
         } else {
-            cell.style.backgroundColor = "#eee"; // Empty
+            // Random noise 10% chance
+            if (Math.random() > 0.9) {
+                cell.classList.add('l1');
+            } else {
+                cell.style.backgroundColor = "#eee"; // Empty
+            }
         }
 
         container.appendChild(cell);
+    });
+}
+
+/* --- SPOTIFY LIVE (via Lanyard) --- */
+const DISCORD_ID = "239934714759086080"; // ไอดีของคุณ
+
+async function initSpotifyListener() {
+    // เรียกครั้งแรกทันที
+    checkSpotify();
+
+    // เรียกซ้ำทุก 5 วินาที (Polling)
+    setInterval(checkSpotify, 5000);
+}
+
+async function checkSpotify() {
+    try {
+        const res = await fetch(`https://api.lanyard.rest/v1/users/${DISCORD_ID}`);
+        const json = await res.json();
+
+        const musicApp = document.getElementById('app-music');
+        const statusEl = document.getElementById('music-status');
+        const coverEl = document.getElementById('album-cover');
+        const titleEl = document.getElementById('song-title');
+        const artistEl = document.getElementById('artist-name');
+        const progressBar = document.getElementById('progress-bar');
+
+        if (json.success && json.data.listening_to_spotify) {
+            const spotify = json.data.spotify;
+
+            // 1. Update Text
+            titleEl.innerText = spotify.song;
+            artistEl.innerText = spotify.artist;
+            statusEl.innerText = "🎵 NOW PLAYING via Discord";
+            statusEl.style.color = "#ff4d4d"; // Red
+
+            // 2. Update Cover Art
+            if (coverEl.src !== spotify.album_art_url) {
+                coverEl.src = spotify.album_art_url;
+            }
+
+            // 3. Update Fake Progress Bar (คำนวณจาก Time stamps)
+            const total = spotify.timestamps.end - spotify.timestamps.start;
+            const current = Date.now() - spotify.timestamps.start;
+            const percent = Math.min((current / total) * 100, 100);
+            if (progressBar) progressBar.style.width = `${percent}%`;
+
+        } else {
+            // กรณีไม่ได้ฟังเพลง
+            if (statusEl) {
+                statusEl.innerText = "Music OFF (Spotify Paused)";
+                statusEl.style.color = "#555";
+            }
+            if (titleEl) titleEl.innerText = "Waiting for music...";
+            if (artistEl) artistEl.innerText = "-";
+            if (coverEl) coverEl.src = "assets/noting.png";
+            if (progressBar) progressBar.style.width = "0%";
+        }
+    } catch (e) {
+        console.error("Lanyard Error:", e);
     }
 }

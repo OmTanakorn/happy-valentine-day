@@ -2,8 +2,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 :root {
-  --bg-color: #8b1e3f;
-  /* Dark Pink/Red Background */
+  --bg-color: #d16b84;
+  /* Lighter Pink/Red Background (was #8b1e3f) */
   --nav-bar-bg: #d41e52;
   /* Lighter Pink for bars */
   --light-pink: #ff99ac;
@@ -319,146 +319,160 @@ body {
     grid-template-columns: repeat(15, 1fr);
   }
 }
+
 /* --- NEW PIXEL LOVE OS STYLES --- */
 
 /* App Window Specifics */
 .love-window {
-    background-color: #ff99ac; /* Pink Frame */
-    border: 4px solid #d41e52; /* Darker Pink Border */
-    box-shadow: 8px 8px 0px rgba(0,0,0,0.2);
+  background-color: #ff99ac;
+  /* Pink Frame */
+  border: 4px solid #d41e52;
+  /* Darker Pink Border */
+  box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.2);
 }
 
 .love-window .window-header {
-    background-color: #ff99ac; /* Match frame */
-    border-bottom: 4px solid #d41e52;
-    color: #d41e52;
-    font-size: 14px;
-    padding: 8px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  background-color: #ff99ac;
+  /* Match frame */
+  border-bottom: 4px solid #d41e52;
+  color: #c17b8f;
+  font-size: 14px;
+  padding: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .header-hearts {
-    display: flex;
-    gap: 15px;
-    color: #d41e52;
+  display: flex;
+  gap: 15px;
+  color: #d41e52;
 }
 
 .love-body {
-    background-color: #ffb7c5; /* Lighter pink background base */
-    background-image: 
-        linear-gradient(45deg, #ffc4cf 25%, transparent 25%), 
-        linear-gradient(-45deg, #ffc4cf 25%, transparent 25%), 
-        linear-gradient(45deg, transparent 75%, #ffc4cf 75%), 
-        linear-gradient(-45deg, transparent 75%, #ffc4cf 75%);
-    background-size: 20px 20px;
-    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    text-align: center;
+  background-color: #ffb7c5;
+  /* Lighter pink background base */
+  background-image:
+    linear-gradient(45deg, #ffc4cf 25%, transparent 25%),
+    linear-gradient(-45deg, #ffc4cf 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #ffc4cf 75%),
+    linear-gradient(-45deg, transparent 75%, #ffc4cf 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
 }
 
 .love-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
 }
 
 .pixel-text-small {
-    font-size: 12px;
-    margin-bottom: 10px;
-    color: #2b141a;
-    text-transform: uppercase;
+  font-size: 12px;
+  margin-bottom: 10px;
+  color: #2b141a;
+  text-transform: uppercase;
 }
 
 /* Cat Image */
 .cat-wrapper {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 .pixel-cat {
-    width: 120px; /* Adjust size as needed */
-    height: auto;
-    image-rendering: pixelated;
-    animation: gentle-bounce 2s infinite ease-in-out;
+  width: 120px;
+  /* Adjust size as needed */
+  height: auto;
+  image-rendering: pixelated;
+  animation: gentle-bounce 2s infinite ease-in-out;
 }
 
 @keyframes gentle-bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
 }
 
 /* Buttons */
 .love-actions {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    width: 100%;
-    margin-top: 10px;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  width: 100%;
+  margin-top: 10px;
 }
 
 .love-btn {
-    font-size: 14px;
-    padding: 10px 25px;
-    border: 4px solid rgba(0,0,0,0.2);
-    box-shadow: 0 4px 0 rgba(0,0,0,0.2);
-    text-transform: uppercase;
-    font-weight: bold;
-    transition: all 0.1s;
-    position: relative;
+  font-size: 14px;
+  padding: 10px 25px;
+  border: 4px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2);
+  text-transform: uppercase;
+  font-weight: bold;
+  transition: all 0.1s;
+  position: relative;
 }
 
 .love-btn:active {
-    transform: translateY(4px);
-    box-shadow: none;
+  transform: translateY(4px);
+  box-shadow: none;
 }
 
 .yes-btn {
-    background-color: #ff99ac;
-    color: #d41e52;
-    border-color: #d41e52;
+  background-color: #ff99ac;
+  color: #d41e52;
+  border-color: #d41e52;
 }
 
 .yes-btn:hover {
-    background-color: #ff6b95;
-    color: white;
+  background-color: #ff6b95;
+  color: white;
 }
 
 .no-btn {
-    background-color: #fff0f5;
-    color: #888;
-    border-color: #bbb;
+  background-color: #fff0f5;
+  color: #888;
+  border-color: #bbb;
 }
+
 /* --- FALLING BACKGROUND EFFECT --- */
 .falling-item {
-    position: fixed;
-    top: -10%;
-    z-index: 999;
-    /* Overlay on top of everything */
-    pointer-events: none;
-    /* Let clicks pass through */
-    user-select: none;
-    animation-name: fall;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
+  position: fixed;
+  top: -10%;
+  z-index: 999;
+  /* Overlay on top of everything */
+  pointer-events: none;
+  /* Let clicks pass through */
+  user-select: none;
+  animation-name: fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
 }
 
 @keyframes fall {
-    0% {
-        top: -10%;
-        transform: translateX(0) rotate(0deg);
-        opacity: 1;
-    }
+  0% {
+    top: -10%;
+    transform: translateX(0) rotate(0deg);
+    opacity: 1;
+  }
 
-    100% {
-        top: 110%;
-        transform: translateX(20px) rotate(360deg);
-        opacity: 0.8;
-    }
+  100% {
+    top: 110%;
+    transform: translateX(20px) rotate(360deg);
+    opacity: 0.8;
+  }
 }
