@@ -109,7 +109,6 @@ function initFallingBackground() {
         'assets/flow1.png',
         'assets/icon_com.png',
         'assets/meil.png',
-        'assets/x.png'
     ];
 
     // Create a container for falling items so they don't clutter the body directly
